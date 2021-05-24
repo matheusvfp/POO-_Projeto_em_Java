@@ -5,6 +5,7 @@ import model.Colaborador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import model.Usuario;
 
 public class ColaboradorDAO {
     
@@ -16,10 +17,11 @@ public class ColaboradorDAO {
     
     public void inset(Colaborador colaborador) throws SQLException{
        
-        String sql = "insert into colaborador(nome,email,celular,login,senha) values('"+ colaborador.getNome() +"','"+ colaborador.getEmail() +"','"+ colaborador.getCelular() +"','"+colaborador.getLogin()+"','"+ colaborador.getSenha() +"')";
+        String sql = "insert into colaborador(cpf,email,celular) values('"+ colaborador.getCpf() +"','"+ colaborador.getEmail() +"','"+ colaborador.getCelular() +"');";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
         connection.close();
-
-     }
+    }
+    
 }
+

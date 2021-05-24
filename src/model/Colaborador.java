@@ -3,30 +3,22 @@ package model;
 
 public class Colaborador {
     private int id;
-    private String nome;
+    private String cpf;
     private String email;
     private String celular;
-    private String login;
-    private String senha;
 
-    public Colaborador(int id, String nome, String email, String celular, String login, String senha) {
+    public Colaborador(int id, String cpf, String email, String celular) {
         this.id = id;
-        this.nome = nome;
+        this.email = cpf;
         this.email = email;
         this.celular = celular;
-        this.login = login;
-        this.senha = senha;
     }
 
-    public Colaborador(String nome, String email, String celular, String login, String senha) {
-        this.nome = nome;
+    public Colaborador(String cpf, String email, String celular) {
+        this.cpf = cpf;
         this.email = email;
         this.celular = celular;
-        this.login = login;
-        this.senha = senha;
     }
-    
-    
     
     public int getId() {
         return id;
@@ -34,14 +26,6 @@ public class Colaborador {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getEmail() {
@@ -60,21 +44,12 @@ public class Colaborador {
         this.celular = celular;
     }
 
-    public String getLogin() {
-        return login;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-    
     
 }

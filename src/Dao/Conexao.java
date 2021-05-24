@@ -4,10 +4,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-/**
- *
- * @author ferna
- */
+
 public class Conexao {
     
     public Connection getConnection() throws SQLException{
