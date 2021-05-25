@@ -5,6 +5,10 @@
  */
 package View;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ferna
@@ -255,7 +259,7 @@ public class Venda extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Colaborador col = new Colaborador();
+        Colaboradores col = new Colaboradores();
         col.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -266,9 +270,15 @@ public class Venda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Produtos p = new Produtos();
-        p.setVisible(true);
+        Produtos p;
+        try {
+            p = new Produtos();
+            p.setVisible(true);
         this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

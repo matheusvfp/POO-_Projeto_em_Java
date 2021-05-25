@@ -13,7 +13,6 @@ import controller.PrincipalController;
  */
 public class Principal extends javax.swing.JFrame {
     private final PrincipalController controller;
-    
     /**
      * Creates new form Principal
      */
@@ -219,14 +218,13 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Colaborador col = new Colaborador();
+        Colaboradores col = new Colaboradores();
         col.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         controller.exibeProdutos();
-        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

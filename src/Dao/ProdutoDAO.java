@@ -63,7 +63,7 @@ public class ProdutoDAO {
         String sql = "delete from produto where codigo = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
        
-        statement.setInt(1, produto.getId());
+        statement.setInt(1, produto.getCodigo());
         statement.execute();
     }
     
@@ -100,7 +100,7 @@ public class ProdutoDAO {
     }
     
     public Produto selectPorId(Produto produto) throws SQLException{
-        String sql = "select * from produto whiere codigo = ?";
+        String sql = "select * from produto where codigo = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, produto.getCodigo());
  

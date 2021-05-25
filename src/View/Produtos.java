@@ -10,6 +10,7 @@ import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 import Dao.ProdutoDAO;
+import controller.ProdutosController;
 import dao.Conexao;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,11 +23,14 @@ import javax.swing.JOptionPane;
  * @author ferna
  */
 public class Produtos extends javax.swing.JFrame {
+    private final ProdutosController controller;
     /**
      * Creates new form Principal
      */
-    public Produtos() {
+    public Produtos() throws SQLException {
         initComponents();
+        controller = new ProdutosController(this);
+        preencherTabela();
     }
 
     /**
@@ -54,6 +58,8 @@ public class Produtos extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaProdutos = new javax.swing.JTable();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -161,7 +167,7 @@ public class Produtos extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/images/search.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 30, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 60, 30, 30));
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -169,22 +175,35 @@ public class Produtos extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 60, 310, 40));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 60, 620, 40));
 
         jButton4.setBackground(new java.awt.Color(83, 0, 41));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Adicionar produto");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 230, 40));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, 230, 40));
 
         TabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Categoria", "Nome", "Código", "Validade", "Quant.", "Valor"
+                "Categoria", "Nome", "Código", "Validade", "Quant.", "Valor R$"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TabelaProdutos);
         if (TabelaProdutos.getColumnModel().getColumnCount() > 0) {
             TabelaProdutos.getColumnModel().getColumn(1).setMinWidth(200);
@@ -197,6 +216,23 @@ public class Produtos extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 620, -1));
 
+        jButton6.setBackground(new java.awt.Color(119, 1, 100));
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Editar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 130, 40));
+
+        jButton7.setBackground(new java.awt.Color(119, 1, 100));
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("Excluir");
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 130, 40));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,7 +243,7 @@ public class Produtos extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Colaborador col = new Colaborador();
+        Colaboradores col = new Colaboradores();
         col.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -226,6 +262,18 @@ public class Produtos extends javax.swing.JFrame {
         r.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        EditarProduto ep = new EditarProduto();
+        ep.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        CadastrarProdutos cp = new CadastrarProdutos();
+        cp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,14 +302,13 @@ public class Produtos extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
             public void run() {
-                Produtos telaA = new Produtos();
-                telaA.setVisible(true);
-                
                 try {
+                    Produtos telaA = new Produtos();
+                    telaA.setVisible(true);
                     preencherTabela();
                 } catch (SQLException ex) {
                     Logger.getLogger(Produtos.class.getName()).log(Level.SEVERE, null, ex);
@@ -304,6 +351,8 @@ public class Produtos extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

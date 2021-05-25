@@ -17,11 +17,14 @@ public class ColaboradorDAO {
     
     public void inset(Colaborador colaborador) throws SQLException{
        
-        String sql = "insert into colaborador(cpf,email,celular) values('"+ colaborador.getCpf() +"','"+ colaborador.getEmail() +"','"+ colaborador.getCelular() +"');";
+        String sql = "insert into colaborador(cpf,email,celular) values(?,?,?);";
         PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, colaborador.getCpf());
+        statement.setString(2, colaborador.getEmail());
+        statement.setString(3, colaborador.getCelular());
         statement.execute();
-        connection.close();
     }
+    
     
 }
 
